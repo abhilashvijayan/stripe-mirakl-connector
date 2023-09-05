@@ -1,4 +1,4 @@
-FROM trafex/alpine-nginx-php7:1.10.0
+FROM trafex/php-nginx
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.12/supercronic-linux-amd64 \
     SUPERCRONIC=supercronic-linux-amd64 \
@@ -7,7 +7,7 @@ ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.
 USER root
 
 # Install packages
-RUN apk add postgresql php7-pdo_pgsql php7-iconv php7-tokenizer php7-pcntl php7-gmp libc6-compat curl jq --no-cache
+RUN apk add postgresql php82-pdo_pgsql php82-iconv php82-tokenizer php82-pcntl php82-gmp php82-simplexml libc6-compat curl jq --no-cache
 
 # Install filebeat
 RUN \
@@ -26,7 +26,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copy configuration files
 COPY examples/docker/app/config/filebeat.yml /usr/share/filebeat/filebeat.yml
 RUN chmod go-w /usr/share/filebeat/filebeat.yml
-COPY examples/docker/app/config/php.ini /etc/php7/conf.d/settings.ini
+COPY examples/docker/app/config/php.ini /etc/php82/conf.d/settings.ini
 COPY examples/docker/app/config/nginx.conf /etc/nginx/nginx.conf
 COPY examples/docker/app/certs/* /etc/letsencrypt/
 COPY examples/docker/app/config/crontab /etc/crontabs/connector-crontab
