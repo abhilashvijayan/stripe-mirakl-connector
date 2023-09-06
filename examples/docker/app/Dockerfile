@@ -31,6 +31,7 @@ COPY examples/docker/app/config/nginx.conf /etc/nginx/nginx.conf
 COPY examples/docker/app/certs/* /etc/letsencrypt/
 COPY examples/docker/app/config/crontab /etc/crontabs/connector-crontab
 COPY examples/docker/app/config/supervisord.conf /etc/supervisor/conf.d/connector-supervisord.conf
+COPY examples/docker/app/config/php-fpm.conf /etc/php82/php-fpm.d/zz.conf
 RUN cat /etc/supervisor/conf.d/connector-supervisord.conf >> /etc/supervisor/conf.d/supervisord.conf \
     && rm /etc/supervisor/conf.d/connector-supervisord.conf
 
